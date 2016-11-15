@@ -1,26 +1,23 @@
 #!/bin/bash 
 
-# Script de copie de fichier avec TIMESTAMP en extension
+# Copy file with a timestamp extension (last modification time)
 
 if [[ $# -eq 0 ]]
-then echo "usage : cph <file>"
+then echo "usage: cph <file>"
 fi 
 
 for FILE in $*
-do if [ -e $FILE ]
-   then if [ -f $FILE ]
-        then EXT=`ls -Gg --time-style="+%Y%m%d%H%M" $FILE | cut -f 4 -d " "`
-             #EXT=`date -d@`stat -c %Y cph` +"%Y%m%d%H%M"`
-             cp -rp $FILE $FILE.$EXT
-             rc=$?
-             echo -e "copy of $FILE to $FILE.$EXT \c"
-             if [ $rc -eq 0 ]
-             then echo OK
-                  ec=0
-             else echo KO 
-                  ec=1
-             fi 
-        else echo "$FILE not a standard file"
+do if [[ -e $FILE ]]
+   then #EXT=`ls -Gg --time-style="+%Y%m%d%H%M" $FILE | cut -f 4 -d " "`
+        EXT=`date -d@$(stat -c %Y $FILE) +"%Y%m%d%H%M"`
+        cp -rp $FILE $FILE.$EXT
+        rc=$?
+        echo -e "copy $FILE to $FILE.$EXT \c"
+        if [ $rc -eq 0 ]
+        then echo OK
+             ec=0
+        else echo KO 
+             ec=1
         fi 
    else echo "$FILE not found"
    fi 
