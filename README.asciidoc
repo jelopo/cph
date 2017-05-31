@@ -1,0 +1,18 @@
+=== CPH ===
+cph create a copy of a standard file with a historical indication. 
+The copy name is the same as the orginal name with an extension.
+Exentsion contains the last modification date of the orignal file.
+
+.Example
+----
+$ touch foo
+$ ls -l foo
+-rw-r--r-- 1 jlp jlp 0 May 31 18:57 foo
+$ cph foo  
+copy of foo to foo.201705311857 OK
+$ ls -l foo*
+-rw-r--r-- 1 jlp jlp 0 May 31 18:57 foo
+-rw-r--r-- 1 jlp jlp 0 May 31 18:57 foo.201705311857
+----
+
+
